@@ -11,26 +11,35 @@
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         
+          List<Integer> mergedList = new ArrayList<>();
+
+        // Insert elements from list1 into the merged list
+        ListNode current = list1;
+        while (current != null) {
+            mergedList.add(current.val);
+            current = current.next;
+        }
+
+        // Insert elements from list2 into the merged list
+        current = list2;
+        while (current != null) {
+            mergedList.add(current.val);
+            current = current.next;
+        }
+
+        // Sort the merged list
+        Collections.sort(mergedList);
+
+        // Create a new ListNode to represent the head of the sorted merged list
         ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        
-         while (list1 != null && list2 != null) {
-            if (list1.val < list2.val) {
-                current.next = list1;
-                list1 = list1.next;
-            } else {
-                current.next = list2;
-                list2 = list2.next;
-            }
-            current = current.next; // Move to the next node in the merged list
+        ListNode temp = dummy;
+        for (int num : mergedList) {
+            temp.next = new ListNode(num);
+            temp = temp.next;
         }
-        if (list1 != null) {
-            current.next = list1;
-        } else {
-            current.next = list2;
-        }
-        
-        return dummy.next; 
+
+        // Return the sorted merged list
+        return dummy.next;
         
     }
 }
